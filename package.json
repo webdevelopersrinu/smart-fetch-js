@@ -1,0 +1,46 @@
+{
+  "name": "smart-fetch-js",
+  "version": "0.1.0",
+  "description": "Lightweight zero-config smart network library: retry, caching, request deduplication, interceptors and AbortController support. Zero dependencies, zero build step, framework agnostic.",
+  "type": "module",
+  "main": "./src/index.js",
+  "module": "./src/index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./src/index.js",
+      "default": "./src/index.js"
+    }
+  },
+  "files": [
+    "src",
+    "index.d.ts",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "test": "node --test",
+    "test:watch": "node --test --watch",
+    "example": "node example/basic.js"
+  },
+  "keywords": [
+    "fetch",
+    "http",
+    "http-client",
+    "retry",
+    "exponential-backoff",
+    "cache",
+    "dedupe",
+    "deduplication",
+    "interceptors",
+    "abortcontroller",
+    "axios-alternative",
+    "react-query-alternative",
+    "zero-dependency"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
