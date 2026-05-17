@@ -205,6 +205,27 @@ npm run test:watch
 npm run example   # runnable demo against a throwaway local server
 ```
 
+## Author
+
+**Srinu Desetti** — 📧 [contact@srinudesetti.in](mailto:contact@srinudesetti.in)
+
+[![GitHub](https://img.shields.io/badge/GitHub-webdevelopersrinu-181717?logo=github)](https://github.com/webdevelopersrinu)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-srinu--desetti-0A66C2?logo=linkedin)](https://www.linkedin.com/in/srinu-desetti/)
+[![X](https://img.shields.io/badge/X-@SrinuWeb69207-000000?logo=x)](https://x.com/SrinuWeb69207)
+
+| Where | Link |
+| --- | --- |
+| GitHub | https://github.com/webdevelopersrinu |
+| LinkedIn | https://www.linkedin.com/in/srinu-desetti/ |
+| Medium | https://medium.com/@webdeveloper.srinu9 |
+| Dev.to | https://dev.to/srinu_desetti |
+| X (Twitter) | https://x.com/SrinuWeb69207 |
+| Threads | https://www.threads.com/@srinu_947 |
+| Instagram | https://www.instagram.com/srinu_947/ |
+| Contact | contact@srinudesetti.in |
+
+Issues & feature requests: [GitHub Issues](https://github.com/webdevelopersrinu/smart-fetch-js/issues)
+
 ## License
 
-MIT
+[MIT](LICENSE) © 2026 webdevelopersrinu

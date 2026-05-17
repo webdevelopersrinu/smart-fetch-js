@@ -16,13 +16,15 @@
   "files": [
     "src",
     "index.d.ts",
-    "README.md"
+    "README.md",
+    "LICENSE"
   ],
   "sideEffects": false,
   "scripts": {
     "test": "node --test",
     "test:watch": "node --test --watch",
-    "example": "node example/basic.js"
+    "example": "node example/basic.js",
+    "smoke": "node example/smoke-live.js"
   },
   "keywords": [
     "fetch",
@@ -40,6 +42,19 @@
     "zero-dependency"
   ],
   "license": "MIT",
+  "author": {
+    "name": "Srinu Desetti",
+    "email": "contact@srinudesetti.in",
+    "url": "https://github.com/webdevelopersrinu"
+  },
+  "homepage": "https://github.com/webdevelopersrinu/smart-fetch-js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webdevelopersrinu/smart-fetch-js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/webdevelopersrinu/smart-fetch-js/issues"
+  },
   "engines": {
     "node": ">=18"
   }
