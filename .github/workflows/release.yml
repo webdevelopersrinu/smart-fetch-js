@@ -54,6 +54,10 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # `npm publish` (run by @semantic-release/exec) reads this via the
+          # .npmrc that setup-node wrote. Granular tokens publish fine here —
+          # we no longer call `npm whoami`, which is the call they 401 on.
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
         run: npx semantic-release
