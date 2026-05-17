@@ -1,0 +1,59 @@
+# Automated release pipeline.
+#
+# Trigger: every push to `main`.
+# What it does:
+#   1. installs deps          (semantic-release + plugins)
+#   2. runs the 52 tests      (a failure here STOPS the release — nothing
+#      broken ever reaches npm)
+#   3. runs semantic-release  (reads commit messages → decides the next
+#      version → npm publish → creates a git tag + GitHub Release)
+#
+# Required repo secret: NPM_TOKEN  (an npm "Automation"/granular token)
+# GITHUB_TOKEN is provided automatically by GitHub Actions.
+
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+# Don't run two releases at once if you push twice quickly.
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write # create git tags + GitHub Releases
+  issues: write # semantic-release comments on resolved issues
+  pull-requests: write # ...and on merged PRs
+  id-token: write # npm provenance (verified "built on GitHub" badge)
+
+jobs:
+  release:
+    name: Test & publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history needed by semantic-release)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Run test suite
+        run: node --test
+
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_PROVENANCE: "true"
+        run: npx semantic-release

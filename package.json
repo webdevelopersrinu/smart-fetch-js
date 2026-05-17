@@ -1,6 +1,6 @@
 {
-  "name": "smart-fetch-js",
-  "version": "0.1.0",
+  "name": "@srinu_desetti/smart-fetch-js",
+  "version": "0.0.0-development",
   "description": "Lightweight zero-config smart network library: retry, caching, request deduplication, interceptors and AbortController support. Zero dependencies, zero build step, framework agnostic.",
   "type": "module",
   "main": "./src/index.js",
@@ -20,11 +20,17 @@
     "LICENSE"
   ],
   "sideEffects": false,
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "scripts": {
     "test": "node --test",
     "test:watch": "node --test --watch",
     "example": "node example/basic.js",
-    "smoke": "node example/smoke-live.js"
+    "smoke": "node example/smoke-live.js",
+    "prepublishOnly": "node --test",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "fetch",
@@ -57,5 +63,8 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "semantic-release": "^24.2.0"
   }
 }

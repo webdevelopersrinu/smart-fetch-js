@@ -5,7 +5,7 @@
 A lightweight, **zero-config**, **zero-dependency** network library that bundles the parts of Axios and React Query you actually reach for — retry, caching, request deduplication, interceptors and `AbortController` support — behind a tiny API. Framework agnostic (React, Vue, Node, anywhere `fetch` exists).
 
 ```js
-import { createClient } from "smart-fetch-js";
+import { createClient } from "@srinu_desetti/smart-fetch-js";
 
 const api = createClient({ baseURL: "https://api.example.com" });
 const { data } = await api.get("/users");
@@ -24,8 +24,10 @@ const { data } = await api.get("/users");
 ## Install
 
 ```bash
-npm install smart-fetch-js
+npm install @srinu_desetti/smart-fetch-js
 ```
+
+> Published as the scoped package **`@srinu_desetti/smart-fetch-js`**.
 
 Requires Node ≥ 18 (global `fetch`) or any browser. For Node < 18 or custom transports, inject `fetch` via config.
 
@@ -34,7 +36,7 @@ Requires Node ≥ 18 (global `fetch`) or any browser. For Node < 18 or custom tr
 ## Quick start
 
 ```js
-import { createClient } from "smart-fetch-js";
+import { createClient } from "@srinu_desetti/smart-fetch-js";
 
 const api = createClient({
   baseURL: "https://api.example.com",
@@ -60,7 +62,7 @@ ac.abort();
 A ready-to-use default client is also the default export (it has `.create()`, like Axios):
 
 ```js
-import api from "smart-fetch-js";
+import api from "@srinu_desetti/smart-fetch-js";
 const child = api.create({ baseURL: "https://api.example.com" });
 ```
 
@@ -152,7 +154,7 @@ Request interceptors run **LIFO**, response interceptors **FIFO** (matching Axio
 The internals are exported for advanced use and are independently testable:
 
 ```js
-import { createCache, createDeduper, withRetry, createInterceptorManager } from "smart-fetch-js";
+import { createCache, createDeduper, withRetry, createInterceptorManager } from "@srinu_desetti/smart-fetch-js";
 ```
 
 ---
@@ -204,6 +206,42 @@ npm test          # 52 tests, node:test, zero deps
 npm run test:watch
 npm run example   # runnable demo against a throwaway local server
 ```
+
+## Releasing (automated — for maintainers)
+
+**You never bump the version or run `npm publish` by hand.** Every push to
+`main` runs [`.github/workflows/release.yml`](.github/workflows/release.yml):
+it runs the tests, then `semantic-release` reads the commit messages since the
+last release, computes the next version, publishes to npm, and creates a
+GitHub Release (which *is* the changelog).
+
+The version is decided **entirely by your commit message prefixes**
+([Conventional Commits](https://www.conventionalcommits.org/)):
+
+| Commit message | Release |
+| --- | --- |
+| `fix: correct retry-after parsing` | **patch** — `1.2.3 → 1.2.4` |
+| `feat: add onRetry callback` | **minor** — `1.2.3 → 1.3.0` |
+| `feat: new client API`<br>blank line, then `BREAKING CHANGE: removed createClient` | **major** — `1.2.3 → 2.0.0` |
+| `docs:`, `chore:`, `test:`, `refactor:`, `style:`, `ci:` | **no release** |
+
+```bash
+git commit -m "feat: add request cancellation helper"
+git push origin main          # → tests → v1.3.0 published to npm, automatically
+```
+
+**One-time setup before the first release:**
+
+1. Create the GitHub repo `webdevelopersrinu/smart-fetch-js` and push.
+   (GitHub handle = `webdevelopersrinu`; this is independent of the npm scope.)
+2. npm account username is `srinu_desetti`, so the package scope is
+   `@srinu_desetti` (a scope **must** equal your npm username or an org you
+   own — you have 0 orgs, so it's the username).
+3. npm → Access Tokens → generate an **Automation / granular publish token**.
+4. GitHub repo → Settings → Secrets and variables → Actions → add secret
+   **`NPM_TOKEN`** with that token. (`GITHUB_TOKEN` is automatic.)
+
+That's it — from then on, pushing conventional commits to `main` ships to npm.
 
 ## Author
 
